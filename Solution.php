@@ -12,51 +12,105 @@ class Solution
         $inputArraySize = count($inputData);
         $traverseSize = $inputArraySize - 1;
 
-        for ($left = 0; $left < $traverseSize; $left++) {
-            if ($inputData[$left] > $inputData[$left + 1]) {
-                $leftIndex = $left;
-                break;
+        $isFirstLeftIndexEntry = false;
+        $isFirstRightIndexEntry = false;
+
+        for ($i = 0; $i < $traverseSize; $i++) {
+            if ($isFirstLeftIndexEntry === false && $inputData[$i] > $inputData[$i + 1]) {
+                $leftIndex = $i;
+                $isFirstLeftIndexEntry = true;
+            }
+            if ($isFirstRightIndexEntry === false
+                && $inputData[$traverseSize - $i] < $inputData[$traverseSize - $i - 1]) {
+                $rightIndex = $traverseSize - $i;
+                $isFirstRightIndexEntry = true;
             }
         }
 
-        if ($left === $traverseSize) {
+        if ($isFirstLeftIndexEntry === false && $isFirstRightIndexEntry === false) {
             echo "Array is already sorted!";
             return [];
         }
 
-        for ($right = $traverseSize; $right > 0; $right--) {
-            if ($inputData[$right] < $inputData[$right - 1]) {
-                $rightIndex = $right;
-                break;
-            }
-        }
-
         $min = $inputData[$rightIndex];
         $max = $inputData[$leftIndex];
+        $result['right'] = $rightIndex;
+        $result['left'] = $leftIndex;
 
-        for ($i = $leftIndex + 1; $i <= $rightIndex + 1; $i++) {
-            if ($inputData[$i] < $min) {
-                $min = $inputData[$i];
+        $indexesMiddle = round(($rightIndex + $leftIndex) / 2);
+
+        $isLeftIndexReached = false;
+        $isRightIndexReached = false;
+        for ($i = 0; $i < $inputArraySize; $i++){
+            $leftPointer = (int)$indexesMiddle - $i;
+            $rightPointer = (int)$indexesMiddle + $i;
+
+            if ($leftPointer > $leftIndex){
+                if ($inputData[$leftPointer] < $min) {
+                    $min = $inputData[$leftPointer];
+                    $result['right'] = $rightPointer;
+                }
+                if ($inputData[$leftPointer] > $max) {
+                    $max = $inputData[$leftPointer];
+                    $result['right'] = $rightPointer;
+                }
             }
-            if ($inputData[$i] > $max) {
-                $max = $inputData[$i];
+            if ($leftPointer === $leftIndex){
+                $isLeftIndexReached = true;
+            }
+
+            if ($rightPointer < $rightIndex){
+                if ($inputData[$rightPointer] < $min) {
+                    $min = $inputData[$rightPointer];
+                    $result['left'] = $leftPointer;
+                }
+                if ($inputData[$rightPointer] > $max) {
+                    $max = $inputData[$rightPointer];
+                    $result['right'] = $rightPointer;
+                }
+            }
+            if ($rightPointer === $rightIndex){
+                $isRightIndexReached = true;
+            }
+
+            if ($isRightIndexReached === true && $isLeftIndexReached === true){
+                if ($leftPointer >= 0){
+                    if ($inputData[$leftPointer] > $min) {
+                        $result['left'] = $leftPointer;
+                    }
+                }
+                if ($rightPointer <= $traverseSize){
+                    if ($inputData[$rightPointer] < $max) {
+                        $result['right'] = $rightPointer;
+                    }
+                }
             }
         }
 
-        $result = [];
-        for ($i = $traverseSize; $i >= $rightIndex; $i--) {
-            if ($inputData[$i] < $max) {
-                $result['right'] = $i;
-                break;
-            }
-        }
-
-        for ($i = 0; $i < $leftIndex; $i++) {
-            if ($inputData[$i] > $min) {
-                $result['left'] = $i;
-                break;
-            }
-        }
+//        for ($i = $leftIndex + 1; $i <= $rightIndex; $i++) {
+//            if ($inputData[$i] < $min) {
+//                $min = $inputData[$i];
+//                $result['left'] = $i;
+//            }
+//            if ($inputData[$i] > $max) {
+//                $max = $inputData[$i];
+//                $result['right'] = $i;
+//            }
+//        }
+//
+//        for ($i = $traverseSize; $i >= $rightIndex; $i--) {
+//            if ($inputData[$i] < $max) {
+//                $result['right'] = $i;
+//                break;
+//            }
+//        }
+//
+//        for ($i = 0; $i <= $leftIndex; $i++) {
+//            if ($inputData[$i] > $min) {
+//                $result['left'] = $i;
+//                break;
+//            }
+//        }
 
         return $result;
     }
