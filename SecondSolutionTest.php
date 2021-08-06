@@ -2,9 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once("Solution.php");
+require_once("SecondSolution.php");
 
-class SolutionTest extends TestCase
+class SecondSolutionTest extends TestCase
 {
     /**
      * @param array $inputData
@@ -12,7 +12,7 @@ class SolutionTest extends TestCase
      */
     public function testSolutionWithoutUnsortedArray(array $inputData): void
     {
-        $sut = new Solution();
+        $sut = new SecondSolution();
 
         $result = $sut->findUnsortedSubarray($inputData);
 
@@ -30,14 +30,14 @@ class SolutionTest extends TestCase
      */
     public function testSolutionWithUnsortedArray(array $inputData): void
     {
-        $sut = new Solution();
+        $sut = new SecondSolution();
 
         $result = $sut->findUnsortedSubarray($inputData);
 
         self::assertEquals(
             [
-                'left' => 1,
-                'right' => 8
+                'left' => 3,
+                'right' => 9
             ],
             $result);
     }
@@ -55,6 +55,6 @@ class SolutionTest extends TestCase
      */
     public function getUnsortedArray(): array
     {
-        return [[[1, 3, 4, 6, 5, 2, 11, 7, 10, 14, 15, 16]]];
+        return [[[1, 1, 1, 4, 3, 2, 99, 4, 4, 4]]];
     }
 }

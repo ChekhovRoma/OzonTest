@@ -28,7 +28,7 @@ class SecondSolution
         }
 
         if ($isFirstLeftIndexEntry === false && $isFirstRightIndexEntry === false) {
-            echo "Array is already sorted!";
+            echo "Array is already sorted!\n";
             return [
                 'left' => null,
                 'right' => null
@@ -89,31 +89,6 @@ class SecondSolution
                 }
             }
         }
-
-//        for ($i = $leftIndex + 1; $i <= $rightIndex; $i++) {
-//            if ($inputData[$i] < $min) {
-//                $min = $inputData[$i];
-//                $result['left'] = $i;
-//            }
-//            if ($inputData[$i] > $max) {
-//                $max = $inputData[$i];
-//                $result['right'] = $i;
-//            }
-//        }
-//
-//        for ($i = $traverseSize; $i >= $rightIndex; $i--) {
-//            if ($inputData[$i] < $max) {
-//                $result['right'] = $i;
-//                break;
-//            }
-//        }
-//
-//        for ($i = 0; $i <= $leftIndex; $i++) {
-//            if ($inputData[$i] > $min) {
-//                $result['left'] = $i;
-//                break;
-//            }
-//        }
 
         return $result;
     }
