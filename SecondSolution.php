@@ -1,6 +1,6 @@
 <?php
 
-class Solution
+class SecondSolution
 {
     /**
      * @param array $inputData
@@ -29,7 +29,10 @@ class Solution
 
         if ($isFirstLeftIndexEntry === false && $isFirstRightIndexEntry === false) {
             echo "Array is already sorted!";
-            return [];
+            return [
+                'left' => null,
+                'right' => null
+            ];
         }
 
         $min = $inputData[$rightIndex];
@@ -41,11 +44,11 @@ class Solution
 
         $isLeftIndexReached = false;
         $isRightIndexReached = false;
-        for ($i = 0; $i < $inputArraySize; $i++){
+        for ($i = 0; $i < $inputArraySize; $i++) {
             $leftPointer = (int)$indexesMiddle - $i;
             $rightPointer = (int)$indexesMiddle + $i;
 
-            if ($leftPointer > $leftIndex){
+            if ($leftPointer > $leftIndex) {
                 if ($inputData[$leftPointer] < $min) {
                     $min = $inputData[$leftPointer];
                     $result['right'] = $rightPointer;
@@ -55,11 +58,11 @@ class Solution
                     $result['right'] = $rightPointer;
                 }
             }
-            if ($leftPointer === $leftIndex){
+            if ($leftPointer === $leftIndex) {
                 $isLeftIndexReached = true;
             }
 
-            if ($rightPointer < $rightIndex){
+            if ($rightPointer < $rightIndex) {
                 if ($inputData[$rightPointer] < $min) {
                     $min = $inputData[$rightPointer];
                     $result['left'] = $leftPointer;
@@ -69,17 +72,17 @@ class Solution
                     $result['right'] = $rightPointer;
                 }
             }
-            if ($rightPointer === $rightIndex){
+            if ($rightPointer === $rightIndex) {
                 $isRightIndexReached = true;
             }
 
-            if ($isRightIndexReached === true && $isLeftIndexReached === true){
-                if ($leftPointer >= 0){
+            if ($isRightIndexReached === true && $isLeftIndexReached === true) {
+                if ($leftPointer >= 0) {
                     if ($inputData[$leftPointer] > $min) {
                         $result['left'] = $leftPointer;
                     }
                 }
-                if ($rightPointer <= $traverseSize){
+                if ($rightPointer <= $traverseSize) {
                     if ($inputData[$rightPointer] < $max) {
                         $result['right'] = $rightPointer;
                     }
